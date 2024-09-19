@@ -4,7 +4,6 @@ pipeline{
         maven 'Maven'
         nodejs 'node16'
     }
-    }
     stages {
         stage('clean workspace'){
             steps{
@@ -28,7 +27,6 @@ pipeline{
                 sh "npm install"
             }
         }
-    }
     post {
      always {
         emailext attachLog: true,
