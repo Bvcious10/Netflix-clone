@@ -13,11 +13,7 @@ pipeline{
         }
         stage("Sonarqube Analysis "){
             steps{
-               mvn clean verify sonar:sonar \
-  -Dsonar.projectKey=Netflix \
-  -Dsonar.projectName='Netflix' \
-  -Dsonar.host.url=http://172.21.21.122:9000 \
-  -Dsonar.token=sqp_296e3049f694920f9b9552e2ea8be16735168e36
+               sh "mvn clean verify sonar:sonar -Dsonar.projectKey=Netflix -Dsonar.projectName='Netflix' -Dsonar.host.url=http://172.21.21.122:9000 -Dsonar.token=sqp_296e3049f694920f9b9552e2ea8be16735168e36"
             }
         }
         stage("quality gate"){
