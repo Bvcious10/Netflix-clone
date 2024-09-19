@@ -4,8 +4,6 @@ pipeline{
         jdk 'jdk17'
         nodejs 'node16'
     }
-    environment {
-        SCANNER_HOME=tool 'sonar-scanner'
     }
     stages {
         stage('clean workspace'){
@@ -15,10 +13,11 @@ pipeline{
         }
         stage("Sonarqube Analysis "){
             steps{
-                withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
-                    -Dsonar.projectKey=Netflix '''
-                }
+               mvn clean verify sonar:sonar \
+  -Dsonar.projectKey=Netflix \
+  -Dsonar.projectName='Netflix' \
+  -Dsonar.host.url=http://172.21.21.122:9000 \
+  -Dsonar.token=sqp_296e3049f694920f9b9552e2ea8be16735168e36
             }
         }
         stage("quality gate"){
